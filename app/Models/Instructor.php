@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Curso;
 
 class Instructor extends Model
 {
@@ -17,13 +18,14 @@ class Instructor extends Model
         'telefono',
         'direccion',
         'observaciones',
+        'curso_codigo'
     ];    
 
     protected $primaryKey = 'codigo';
     public $timestamps = false;
 
     public function curso() {
-        return $this->belongsTo('Curso');
+        return $this->belongsTo(Curso::class,'curso_codigo','codigo_curso');
     }
 }
 

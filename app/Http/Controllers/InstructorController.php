@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Instructor;
+use App\Models\Curso;
 
 class InstructorController extends Controller
 {
     public function index()
     {
-        $instructors = Instructor::all()->toArray();
+        $instructors = Instructor::with('curso')->get()->toArray();
         return array_reverse($instructors);      
     }
     public function store(Request $request)
@@ -22,7 +23,9 @@ class InstructorController extends Controller
             'correo' => $request->input('correo'),
             'telefono' => $request->input('telefono'),
             'direccion' => $request->input('direccion'),
-            'observaciones' => $request->input('observaciones')
+            'observaciones' => $request->input('observaciones'),
+            'curso_codigo' => $request->input('curso_codigo')
+
         ]);
         $instructor->save();
         return response()->json('Instructor Creado!');
